@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">WordStack</string>
     <string name="game_start">Game Started</string>
+    <string name="display_originals">%s %s</string>
 </resources>
