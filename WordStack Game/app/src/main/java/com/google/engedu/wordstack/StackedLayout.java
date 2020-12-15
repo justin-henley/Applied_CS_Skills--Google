@@ -63,10 +63,11 @@ public class StackedLayout extends LinearLayout {
     }
 
     public void clear() {
-        /**
-         **
-         **  YOUR CODE GOES HERE
-         **
-         **/
+        // remove view of the top tile if there is one
+        if (!tiles.empty()) {
+            removeView(tiles.peek());
+            tiles.clear();
+        }
+
     }
 }

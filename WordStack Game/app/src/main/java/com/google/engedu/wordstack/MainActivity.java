@@ -70,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
         verticalLayout.addView(stackedLayout, 3);
 
         View word1LinearLayout = findViewById(R.id.word1);
-        word1LinearLayout.setOnTouchListener(new TouchListener());
-        //word1LinearLayout.setOnDragListener(new DragListener());
+        //word1LinearLayout.setOnTouchListener(new TouchListener());
+        word1LinearLayout.setOnDragListener(new DragListener());
         View word2LinearLayout = findViewById(R.id.word2);
-        word2LinearLayout.setOnTouchListener(new TouchListener());
-        //word2LinearLayout.setOnDragListener(new DragListener());
+        //word2LinearLayout.setOnTouchListener(new TouchListener());
+        word2LinearLayout.setOnDragListener(new DragListener());
     }
 
     private class TouchListener implements View.OnTouchListener {
@@ -124,11 +124,7 @@ public class MainActivity extends AppCompatActivity {
                         TextView messageBox = (TextView) findViewById(R.id.message_box);
                         messageBox.setText(word1 + " " + word2);
                     }
-                    /**
-                     **
-                     **  YOUR CODE GOES HERE
-                     **
-                     **/
+                    placedTiles.push(tile);
                     return true;
             }
             return false;
@@ -136,13 +132,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean onStartGame(View view) {
+        // Clear the previous game (if any)
+        LinearLayout word1LinearLayout = findViewById(R.id.word1);
+        word1LinearLayout.removeAllViews();
+        LinearLayout word2LinearLayout = findViewById(R.id.word2);
+        word2LinearLayout.removeAllViews();
+        stackedLayout.clear();
+        placedTiles.clear();
+
         TextView messageBox = (TextView) findViewById(R.id.message_box);
         messageBox.setText("Game started");
 
         // Pick two random words
         Random random = new Random();
-        String word1 = words.get(random.nextInt(words.size() - 1));
-        String word2 = words.get(random.nextInt(words.size() - 1));
+        word1 = words.get(random.nextInt(words.size() - 1));
+        word2 = words.get(random.nextInt(words.size() - 1));
 
         // shuffle words into a single mixed string, with word orders preserved
         StringBuilder shuffled = new StringBuilder();
@@ -171,10 +175,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean onUndo(View view) {
-        if (!placedTiles.empty()) {
+        if (!placedTiles.empty() && !stackedLayout.empty()) {
             LetterTile tile = placedTiles.pop();
             tile.moveToViewGroup(stackedLayout);
+            return true;
         }
-        return true;
+        else
+            return false;
+
     }
 }
