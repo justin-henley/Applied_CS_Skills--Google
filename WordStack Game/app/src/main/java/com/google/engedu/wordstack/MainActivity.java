@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             InputStream inputStream = assetManager.open("words.txt");
             BufferedReader in = new BufferedReader(new InputStreamReader(inputStream));
-            String line = null;
+            String line;
             while((line = in.readLine()) != null) {
                 String word = line.trim();
                 if (word.length() == WORD_LENGTH) {
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "Could not load dictionary", Toast.LENGTH_LONG);
             toast.show();
         }
-        LinearLayout verticalLayout = (LinearLayout) findViewById(R.id.vertical_layout);
+        LinearLayout verticalLayout = findViewById(R.id.vertical_layout);
         stackedLayout = new StackedLayout(this);
         verticalLayout.addView(stackedLayout, 3);
 
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 LetterTile tile = (LetterTile) stackedLayout.peek();
                 tile.moveToViewGroup((ViewGroup) v);
                 if (stackedLayout.empty()) {
-                    TextView messageBox = (TextView) findViewById(R.id.message_box);
+                    TextView messageBox = findViewById(R.id.message_box);
                     messageBox.setText(word1 + " " + word2);
                 }
                 placedTiles.push(tile);
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
                     LetterTile tile = (LetterTile) event.getLocalState();
                     tile.moveToViewGroup((ViewGroup) v);
                     if (stackedLayout.empty()) {
-                        TextView messageBox = (TextView) findViewById(R.id.message_box);
+                        TextView messageBox = findViewById(R.id.message_box);
                         messageBox.setText(word1 + " " + word2);
                     }
                     placedTiles.push(tile);
@@ -140,8 +140,8 @@ public class MainActivity extends AppCompatActivity {
         stackedLayout.clear();
         placedTiles.clear();
 
-        TextView messageBox = (TextView) findViewById(R.id.message_box);
-        messageBox.setText("Game started");
+        TextView messageBox = findViewById(R.id.message_box);
+        messageBox.setText(R.string.game_start);
 
         // Pick two random words
         Random random = new Random();
@@ -160,9 +160,6 @@ public class MainActivity extends AppCompatActivity {
         while (count2 != WORD_LENGTH) {
             shuffled.append(word2.charAt(count2++));
         }
-
-        // Set the tip box of the shuffled word TODO remove this box
-        messageBox.setText(shuffled.toString());
 
         // Push each letter onto stackedLayout as a LetterTile in reverse order
         shuffled.reverse();
