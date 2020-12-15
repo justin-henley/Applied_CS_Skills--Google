@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DiceGame</string>
+    <string name="roll_button_label">ROLL</string>
+    <string name="hold_button_label">HOLD</string>
+    <string name="reset_button_label">RESET</string>
+    <string name="scoreboard_message">User score: %d, Computer score: %d, %s</string>
+</resources>

@@ -1,0 +1,24 @@
+        // Iteratively check words until one is found, wrapping around to beginning if necessary
+        while (currIndex != randomIndex) {
+            // get word and sort
+            String entry = sizeList.get(currIndex);
+            String sortedEntry = sortLetters(entry);
+            // Check number of anagrams is at least the minimum
+            if (lettersToWords.get(sortedEntry).size() >= MIN_NUM_ANAGRAMS) {
+                // Increment word size unless maximum reached
+                if (wordLength < MAX_WORD_LENGTH)
+                    wordLength++;
+                // Return the picked starting word
+                return entry;
+            }
+            else {
+                // Increment if end of list not reached
+                if (currIndex < wordList.size() - 1) {
+                    currIndex++;
+                }
+                // Else wrap around to start
+                else {
+                    currIndex = 0;
+                }
+            }
+        }
