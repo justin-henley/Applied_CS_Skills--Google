@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
             shuffled.append(word2.charAt(count2++));
         }
 
+        // Set the tip box of the shuffled word TODO remove this box
         messageBox.setText(shuffled.toString());
 
         // Push each letter onto stackedLayout as a LetterTile in reverse order
